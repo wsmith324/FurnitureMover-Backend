@@ -27,4 +27,18 @@ public class FurnitureController {
     public @ResponseBody List<FurnitureResponse> viewFurniture(@RequestHeader(name = "home_id") String home_id) {
         return furnitureServices.viewFurniture(home_id);
     }
+
+    @CrossOrigin
+    @ResponseStatus(value = HttpStatus.CREATED)
+    @GetMapping(value = "/viewallfurniture",  produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<FurnitureResponse> viewAllFurniture() {
+        return furnitureServices.viewAllFurniture();
+    }
+
+    @CrossOrigin
+    @ResponseStatus(value = HttpStatus.CREATED)
+    @GetMapping(value = "/itemquantity",  produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody int itemQuantity(@RequestHeader(name = "item") String item) {
+        return furnitureServices.itemQuantity(item);
+    }
 }

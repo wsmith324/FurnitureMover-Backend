@@ -30,4 +30,17 @@ public class FurnitureServices {
         }
         return furnitureResp;
     }
+
+    public List<FurnitureResponse> viewAllFurniture() {
+        Iterable<Furniture> furniture = furnitureRepository.findAll();
+        List<FurnitureResponse> furnitureResp = new ArrayList<>();
+        for (Furniture i : furniture) {
+            furnitureResp.add(new FurnitureResponse(i.getName(), i.getSize()));
+        }
+        return furnitureResp;
+    }
+
+    public int itemQuantity(String name) {
+        return Integer.parseInt(furnitureRepository.itemQuantity(name).split(",")[1]);
+    }
 }

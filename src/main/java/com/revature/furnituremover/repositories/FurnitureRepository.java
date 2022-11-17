@@ -11,4 +11,7 @@ import java.util.List;
 public interface FurnitureRepository extends CrudRepository<Furniture, String> {
     @Query(value = "SELECT * FROM furniture WHERE home_id = ?1", nativeQuery = true)
     List<Furniture> viewFurniture(String home_id);
+
+    @Query(value = "SELECT name, COUNT(*) FROM furniture GROUP BY name HAVING name = ?1", nativeQuery = true)
+    String itemQuantity(String name);
 }
