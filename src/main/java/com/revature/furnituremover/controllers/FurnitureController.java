@@ -1,5 +1,6 @@
 package com.revature.furnituremover.controllers;
 
+import com.revature.furnituremover.dtos.requests.FurnitureRequest;
 import com.revature.furnituremover.dtos.responses.FurnitureResponse;
 import com.revature.furnituremover.dtos.responses.HomeResponse;
 import com.revature.furnituremover.services.FurnitureServices;
@@ -40,5 +41,13 @@ public class FurnitureController {
     @GetMapping(value = "/itemquantity",  produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody int itemQuantity(@RequestHeader(name = "item") String item) {
         return furnitureServices.itemQuantity(item);
+    }
+
+    @CrossOrigin
+    @ResponseStatus(value = HttpStatus.CREATED)
+    @PostMapping(value = "/addfurniture", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String addFurniture(@RequestBody FurnitureRequest furnitureRequest, @RequestHeader(name = "home_id") String home_id) {
+        furnitureServices.addFurniture(furnitureRequest, home_id);
+        return "Your item has been added to this home!";
     }
 }

@@ -1,5 +1,6 @@
 package com.revature.furnituremover.controllers;
 
+import com.revature.furnituremover.dtos.requests.HomeRequest;
 import com.revature.furnituremover.dtos.responses.HomeResponse;
 import com.revature.furnituremover.services.HomeServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,16 @@ public class HomeController {
 
     @CrossOrigin
     @ResponseStatus(value = HttpStatus.CREATED)
-    @GetMapping(value = "/viewhomes",  produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/viewhomes", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody List<HomeResponse> viewHomes() {
         return homeServices.viewHomes();
+    }
+
+    @CrossOrigin
+    @ResponseStatus(value = HttpStatus.CREATED)
+    @PostMapping(value = "/createhome", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String createHome(@RequestBody HomeRequest homeRequest) {
+        homeServices.createHome(homeRequest);
+        return "Your home has been added to the system!";
     }
 }

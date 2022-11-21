@@ -13,4 +13,6 @@ public interface HomeRepository extends CrudRepository<Home, String> {
     @Query(value = "SELECT * FROM HOME", nativeQuery = true)
     List<Home> viewHomes();
 
+    @Query(value = "SELECT * FROM HOME WHERE home_id = ?1", nativeQuery = true)
+    Home getHomeByID(String home_id);
 }

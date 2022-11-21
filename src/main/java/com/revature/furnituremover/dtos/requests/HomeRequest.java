@@ -1,24 +1,14 @@
-package com.revature.furnituremover.dtos.responses;
+package com.revature.furnituremover.dtos.requests;
 
-public class HomeResponse {
-    private String id;
+public class HomeRequest {
     private String name;
     private int size;
 
-    public HomeResponse() {}
+    public HomeRequest() {}
 
-    public HomeResponse(String id, String name, int size) {
-        this.id = id;
+    public HomeRequest(String name, int size) {
         this.name = name;
         this.size = size;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -39,9 +29,8 @@ public class HomeResponse {
 
     @Override
     public String toString() {
-        return "HomeResponse{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
+        return "HomeRequest{" +
+                "name='" + name + '\'' +
                 ", size=" + size +
                 '}';
     }
