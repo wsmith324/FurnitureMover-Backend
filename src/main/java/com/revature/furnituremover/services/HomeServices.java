@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,6 +34,10 @@ public class HomeServices {
     }
 
     public void createHome(HomeRequest homeRequest) {
-        homeRepository.save(new Home(UUID.randomUUID().toString(), homeRequest.getName(), homeRequest.getSize()));
+        StringBuilder newName = new StringBuilder();
+        for (int i=0; i<homeRequest.getName().split(" ").length; i++) {
+            newName.append(homeRequest.getName().split(" ")[i].substring(0, 1).toUpperCase() + homeRequest.getName().split(" ")[i].substring(1));
+        }
+        homeRepository.save(new Home(UUID.randomUUID().toString(), newName.toString(), homeRequest.getSize()));
     }
 }

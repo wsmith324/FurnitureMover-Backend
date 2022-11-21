@@ -47,7 +47,8 @@ public class FurnitureController {
     @ResponseStatus(value = HttpStatus.CREATED)
     @PostMapping(value = "/addfurniture", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody String addFurniture(@RequestBody FurnitureRequest furnitureRequest, @RequestHeader(name = "home_id") String home_id) {
-        furnitureServices.addFurniture(furnitureRequest, home_id);
-        return "Your item has been added to this home!";
+
+        return furnitureServices.addFurniture(furnitureRequest, home_id);
     }
+
 }

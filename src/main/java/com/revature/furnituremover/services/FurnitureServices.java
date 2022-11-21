@@ -48,9 +48,14 @@ public class FurnitureServices {
         return Integer.parseInt(furnitureRepository.itemQuantity(name).split(",")[1]);
     }
 
-    public void addFurniture(FurnitureRequest furnitureRequest, String home_id) {
+    public String addFurniture(FurnitureRequest furnitureRequest, String home_id) {
         Home home = homeRepository.getHomeByID(home_id);
         Furniture furniture = new Furniture(UUID.randomUUID().toString(), furnitureRequest.getName(), furnitureRequest.getSize(), home);
-        furnitureRepository.save(furniture);
+        if (Integer.parseInt(furnitureRepository.storageSize(home_id)) + furnitureRequest.getSize() > (homeRepository.homeSize(home_id))/2) {
+            throw new RuntimeException("Home has reached maximum capacity");
+        } else {
+            furnitureRepository.save(furniture);
+        }
+        return "Item added to house!";
     }
 }

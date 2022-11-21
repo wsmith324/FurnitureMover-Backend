@@ -14,4 +14,7 @@ public interface FurnitureRepository extends CrudRepository<Furniture, String> {
 
     @Query(value = "SELECT name, COUNT(*) FROM furniture GROUP BY name HAVING name = ?1", nativeQuery = true)
     String itemQuantity(String name);
+
+    @Query(value = "SELECT SUM(CAST(size AS int)) FROM furniture WHERE home_id = ?", nativeQuery = true)
+    String storageSize(String home_id);
 }
