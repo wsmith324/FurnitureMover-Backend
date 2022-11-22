@@ -34,9 +34,10 @@ public class HomeServices {
     }
 
     public void createHome(HomeRequest homeRequest) {
+        String trim = homeRequest.getName().trim();
         StringBuilder newName = new StringBuilder();
-        for (int i=0; i<homeRequest.getName().split(" ").length; i++) {
-            newName.append(homeRequest.getName().split(" ")[i].substring(0, 1).toUpperCase() + homeRequest.getName().split(" ")[i].substring(1));
+        for (int i=0; i<trim.split(" ").length; i++) {
+            newName.append(trim.split(" ")[i].substring(0, 1).toUpperCase() + trim.split(" ")[i].substring(1));
         }
         homeRepository.save(new Home(UUID.randomUUID().toString(), newName.toString(), homeRequest.getSize()));
     }

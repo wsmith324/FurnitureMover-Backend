@@ -6,6 +6,7 @@ import com.revature.furnituremover.models.Furniture;
 import com.revature.furnituremover.models.Home;
 import com.revature.furnituremover.repositories.FurnitureRepository;
 import com.revature.furnituremover.repositories.HomeRepository;
+import com.revature.furnituremover.utils.customexceptions.FullHouseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,14 +46,20 @@ public class FurnitureServices {
     }
 
     public int itemQuantity(String name) {
+        System.out.println("Name: " + name);
+        System.out.println(furnitureRepository.itemQuantity(name));
         return Integer.parseInt(furnitureRepository.itemQuantity(name).split(",")[1]);
     }
 
     public String addFurniture(FurnitureRequest furnitureRequest, String home_id) {
         Home home = homeRepository.getHomeByID(home_id);
-        Furniture furniture = new Furniture(UUID.randomUUID().toString(), furnitureRequest.getName(), furnitureRequest.getSize(), home);
-        if (Integer.parseInt(furnitureRepository.storageSize(home_id)) + furnitureRequest.getSize() > (homeRepository.homeSize(home_id))/2) {
-            throw new RuntimeException("Home has reached maximum capacity");
+        Furniture furniture = new Furniture(UUID.randomUUID().toString(), furnitureRequest.getName().trim(), furnitureRequest.getSize(), home);
+        int storageSize = 0;
+        try {
+            storageSize += Integer.parseInt(furnitureRepository.storageSize(home_id));
+        } catch (NumberFormatException e) {}
+        if (storageSize + furnitureRequest.getSize() > (homeRepository.homeSize(home_id))/2) {
+            throw new FullHouseException("Home has reached maximum capacity");
         } else {
             furnitureRepository.save(furniture);
         }

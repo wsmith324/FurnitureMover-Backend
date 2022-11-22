@@ -4,6 +4,7 @@ import com.revature.furnituremover.dtos.requests.FurnitureRequest;
 import com.revature.furnituremover.dtos.responses.FurnitureResponse;
 import com.revature.furnituremover.dtos.responses.HomeResponse;
 import com.revature.furnituremover.services.FurnitureServices;
+import com.revature.furnituremover.utils.customexceptions.FullHouseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -51,4 +52,9 @@ public class FurnitureController {
         return furnitureServices.addFurniture(furnitureRequest, home_id);
     }
 
+    @ExceptionHandler
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public FullHouseException noRoomInHouse(FullHouseException e) {
+        return e;
+    }
 }
